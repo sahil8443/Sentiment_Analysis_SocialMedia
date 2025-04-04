@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Matrix - Sentiment Analysis</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9;
+            text-align: center;
+            overflow-x: hidden;
+            color: white;
+        }
+        header {
+            background: rgba(34, 34, 34, 0.95);
+            color: white;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            transition: all 0.3s ease-in-out;
+        }
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        nav ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+        }
+        nav ul li {
+            margin: 0 20px;
+        }
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            transition: color 0.3s ease-in-out;
+        }
+        nav ul li a:hover {
+            color: #ff9800;
+        }
+        section {
+            
+            padding: 10px 10px;
+            margin-top: 80px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-in-out;
+        }
+        .card {
+             background: linear-gradient(135deg, #ffcccb, #ffe4b5);
+            padding: 30px;
+            margin: 15px auto;
+            width: 80%;
+            max-width: 800px;
+            box-shadow: 0px 6px 15px rgba(255, 255, 255, 0.3);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+        }
+        .card:hover {
+            transform: scale(1.05);
+            box-shadow: 0px 10px 20px rgba(255, 255, 255, 0.4);
+        }
+        .btn-animate {
+            background: #ff9800;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            cursor: pointer;
+            font-size: 18px;
+            font-weight: bold;
+            transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+            border-radius: 8px;
+        }
+        .btn-animate:hover {
+            background: #e68900;
+            transform: scale(1.1);
+        }
+        .visible {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">Mind Matrix</div>
+        <nav>
+            <ul>
+                <li><a href="#about">About</a></li>
+                <li><a href="#why-use">Why Use</a></li>
+                <li><a href="#workflow">Workflow</a></li>
+                <li><a href="#video">Video</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <section id="about">
+        <div class="card">
+            <h1>What is Sentiment Analysis?</h1>
+            <p>Sentiment analysis is the process of using natural language processing (NLP) and machine learning to determine the emotional tone behind text data. It helps classify text as <strong>positive</strong>, <strong>negative</strong>, or <strong>neutral</strong>.</p>
+        </div>
+    </section>
+
+    <section id="why-use">
+        <div class="card">
+            <h2>Why Use MindMatrix?</h2>
+            <p>Our tool provides insights into emotions, detects early signs of struggles, supports mental health professionals, improves workplace well-being, and enables data-driven decision-making.</p>
+        </div>
+    </section>
+    
+    <section id="workflow">
+        <div class="card">
+            <h2>How It Works</h2>
+            <ul>
+                <li><strong>Fetching Social Media Data:</strong> Gather data from Instagram & Twitter using APIs.</li>
+                <li><strong>Data Preprocessing:</strong> Clean and normalize text by removing links, special characters, and stopwords.</li>
+                <li><strong>Sentiment Analysis:</strong> Use NLP and machine learning to classify emotions in posts.</li>
+                <li><strong>Combining Insights:</strong> Generate sentiment scores based on polarity and engagement trends.</li>
+                <li><strong>Behavior Analysis:</strong> Identify patterns in posting frequency, engagement, and hashtag usage.</li>
+            </ul>
+        </div>
+    </section>
+
+    <section id="video">
+        <div class="card">
+            <h2>Learn More About Sentiment Analysis</h2>
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/CQDSBgPbKGw" allowfullscreen></iframe>
+            <p>Watch this video to understand the fundamentals of sentiment analysis and its applications.</p>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const sections = document.querySelectorAll("section");
+            const revealOnScroll = () => {
+                sections.forEach(section => {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    if (sectionTop < window.innerHeight - 50) {
+                        section.classList.add("visible");
+                    }
+                });
+            };
+            window.addEventListener("scroll", revealOnScroll);
+            revealOnScroll();
+        });
+    </script>
+</body>
+</html>

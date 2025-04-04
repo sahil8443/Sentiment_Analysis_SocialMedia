@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <title>Launch Page Animation</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #f3f4f6;
+      overflow: hidden;
+    }
+    .logo {
+     
+      opacity: 0;
+      animation: fadeInUp 2s ease forwards, fadeOut 2s 3s forwards;
+    }
+
+    @keyframes fadeInUp {
+      0% {
+        opacity: 0;
+        transform: translateY(50px);
+      }
+      100% {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeOut {
+      to {
+        opacity: 0;
+        transform: translateY(-50px);
+      }
+    }
+  </style>
+  <script>
+    //Redirect to launch.html after the animation completes
+    setTimeout(function() {
+      window.location.href = "launch.html";
+    }, 5000); // 5 seconds to match the animation timeline
+  </script>
+</head>
+<body>
+  <div class="logo"><img src="logo.jpg"></div>
+</body>
+</html>

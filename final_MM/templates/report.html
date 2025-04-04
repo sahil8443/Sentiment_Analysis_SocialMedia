@@ -1,0 +1,262 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Analysis Report</h4>
+                    <a href="{{ url_for('dashboard') }}" class="btn btn-light">
+                        <i class="fas fa-arrow-left me-2"></i>Back to Dashboard
+                    </a>
+                </div>
+            </div>
+
+            {% if results %}
+                <!-- Executive Summary -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">Executive Summary</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card bg-success">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title text-dark">Positive</h5>
+                                        <h2 class="text-dark">{{ sentiment_data.positive }}</h2>
+                                        <p class="mb-0 text-dark">{{ "%.1f"|format(sentiment_data.positive_percent) }}%</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card bg-warning">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title text-dark">Neutral</h5>
+                                        <h2 class="text-dark">{{ sentiment_data.neutral }}</h2>
+                                        <p class="mb-0 text-dark">{{ "%.1f"|format(sentiment_data.neutral_percent) }}%</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card bg-danger">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title text-dark">Negative</h5>
+                                        <h2 class="text-dark">{{ sentiment_data.negative }}</h2>
+                                        <p class="mb-0 text-dark">{{ "%.1f"|format(sentiment_data.negative_percent) }}%</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Sentiment Analysis Bar Charts -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">Sentiment Analysis Summary</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div id="svm-chart" style="height: 400px;"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div id="lr-chart" style="height: 400px;"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div id="bert-chart" style="height: 400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Model Agreement Analysis -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">Model Agreement Analysis</h4>
+                </div>
+                <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div class="card bg-success">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title text-dark">All Models Agree</h5>
+                                        <h2 class="text-dark">{{ model_agreement.all_agree }}</h2>
+                                        <p class="mb-0 text-dark">{{ "%.1f"|format(model_agreement.all_agree_percent) }}%</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card bg-warning">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title text-dark">Two Models Agree</h5>
+                                        <h2 class="text-dark">{{ model_agreement.two_agree }}</h2>
+                                        <p class="mb-0 text-dark">{{ "%.1f"|format(model_agreement.two_agree_percent) }}%</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="card bg-danger">
+                                    <div class="card-body text-center">
+                                        <h5 class="card-title text-dark">No Agreement</h5>
+                                        <h2 class="text-dark">{{ model_agreement.none_agree }}</h2>
+                                        <p class="mb-0 text-dark">{{ "%.1f"|format(model_agreement.none_agree_percent) }}%</p>
+                                    </div>
+                                </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                <!-- Recommendations -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">Mental Health Recommendations</h4>
+                    </div>
+                    <div class="card-body">
+                        {% if recommendations %}
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <h6 class="text-primary">
+                                        <i class="fas fa-heartbeat me-2"></i>
+                                        Mental Health Support Strategies
+                                    </h6>
+                                    <ul class="list-group">
+                                        {% for recommendation in recommendations %}
+                                            {% if "support" in recommendation.lower() or "intervention" in recommendation.lower() or "resource" in recommendation.lower() %}
+                                                <li class="list-group-item">
+                                                    <i class="fas fa-hands-helping text-primary me-2"></i>
+                                                    <span class="text-dark">{{ recommendation }}</span>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                                <div class="col-md-6">
+                                    <h6 class="text-primary">
+                                        <i class="fas fa-brain me-2"></i>
+                                        Emotional Well-being Insights
+                                    </h6>
+                                    <ul class="list-group">
+                                        {% for recommendation in recommendations %}
+                                            {% if "emotional" in recommendation.lower() or "pattern" in recommendation.lower() or "sentiment" in recommendation.lower() %}
+                                                <li class="list-group-item">
+                                                    <i class="fas fa-chart-line text-warning me-2"></i>
+                                                    <span class="text-dark">{{ recommendation }}</span>
+                                                </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="row mt-4">
+                                <div class="col-md-12">
+                                    <h6 class="text-primary">
+                                        <i class="fas fa-tools me-2"></i>
+                                        Additional Resources & Tools
+                                    </h6>
+                                    <ul class="list-group">
+                                        {% for recommendation in recommendations %}
+                                            {% if "workshop" in recommendation.lower() or "tool" in recommendation.lower() or "professional" in recommendation.lower() %}
+                                            <li class="list-group-item">
+                                                    <i class="fas fa-toolbox text-success me-2"></i>
+                                                    <span class="text-dark">{{ recommendation }}</span>
+                                            </li>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        {% else %}
+                            <div class="alert alert-info">
+                                <i class="fas fa-info-circle me-2"></i>
+                                No specific recommendations available at this time.
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <!-- Detailed Analysis -->
+                        <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">Detailed Analysis</h4>
+                            </div>
+                            <div class="card-body">
+                                <div class="table-responsive">
+                                    <table class="table table-striped">
+                                        <thead>
+                                            <tr>
+                                        <th class="text-dark">Text</th>
+                                        <th class="text-dark">SVM</th>
+                                        <th class="text-dark">Logistic Regression</th>
+                                        <th class="text-dark">BERT</th>
+                                        <th class="text-dark">Model Agreement</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                    {% for item in results %}
+                                    <tr>
+                                        <td class="text-dark">{{ item.text }}</td>
+                                        <td>
+                                            <span class="badge {% if item.svm_sentiment == 'positive' %}bg-success text-white{% elif item.svm_sentiment == 'negative' %}bg-danger text-white{% else %}bg-warning text-dark{% endif %}">
+                                                {{ item.svm_sentiment }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge {% if item.lr_sentiment == 'positive' %}bg-success text-white{% elif item.lr_sentiment == 'negative' %}bg-danger text-white{% else %}bg-warning text-dark{% endif %}">
+                                                {{ item.lr_sentiment }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                            <span class="badge {% if item.bert_sentiment == 'positive' %}bg-success text-white{% elif item.bert_sentiment == 'negative' %}bg-danger text-white{% else %}bg-warning text-dark{% endif %}">
+                                                {{ item.bert_sentiment }}
+                                                        </span>
+                                                    </td>
+                                                    <td>
+                                            <span class="badge {% if item.model_agreement == 'All Agree' %}bg-success text-white{% elif item.model_agreement == 'Two Agree' %}bg-warning text-dark{% else %}bg-danger text-white{% endif %}">
+                                                {{ item.model_agreement }}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            {% endfor %}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+
+                <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+                <script>
+                    // Fetch and plot the charts
+                    fetch('/graph/')
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.error) {
+                                document.getElementById('svm-chart').innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
+                                document.getElementById('lr-chart').innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
+                                document.getElementById('bert-chart').innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
+                                return;
+                            }
+                            Plotly.newPlot('svm-chart', data.svm_chart.data, data.svm_chart.layout);
+                            Plotly.newPlot('lr-chart', data.lr_chart.data, data.lr_chart.layout);
+                            Plotly.newPlot('bert-chart', data.bert_chart.data, data.bert_chart.layout);
+                        })
+                        .catch(error => {
+                            console.error('Error loading charts:', error);
+                            document.getElementById('svm-chart').innerHTML = `<div class="alert alert-danger">Error loading charts: ${error.message}</div>`;
+                            document.getElementById('lr-chart').innerHTML = `<div class="alert alert-danger">Error loading charts: ${error.message}</div>`;
+                            document.getElementById('bert-chart').innerHTML = `<div class="alert alert-danger">Error loading charts: ${error.message}</div>`;
+                        });
+                </script>
+                    {% else %}
+                        <div class="alert alert-info">
+                            <i class="fas fa-info-circle me-2"></i>
+                    No analysis results available. Please upload and analyze a file.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+{% endblock %}

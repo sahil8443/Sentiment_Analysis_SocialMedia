@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Matrix - Sentiment Analysis Launch</title>
+    <link rel="stylesheet" href="mind.css">
+</head>
+<body>
+    <header class="bg-primary text-white py-3 text-center">
+        
+        <h1>MindMatrix</h1>   
+        <div class="header-buttons">
+            <button onclick="location.href='index.html'">HOME</button>
+            
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- About Section -->
+        <section id="about">
+            <div class="card">
+                <div class="card-header">Summary</div>
+                <div class="card-body">
+                    <p><b>Purpose:</b> The report analyzes sentiment trends to understand mental health patterns by examining text data from various sources.
+                        <br><b>Key Focus Areas:</b> It identifies emotions such as stress, anxiety, depression, and positivity in individuals and groups.
+                        <br><b>Use Case:</b> Helps in detecting mood shifts, emotional fluctuations, and potential mental health risks, providing valuable insights into overall well-being.
+                        <br><b>Use Case:</b> Utilizes Natural Language Processing (NLP) and Machine Learning (ML) to classify sentiments as positive, negative, or neutral and recognize deeper emotional cues.
+                        <br><b>Impact:</b> Supports mental health awareness, early detection of emotional distress, and decision-making for individuals, therapists, and organizations.
+                        <br><b>Insights & Trends:</b> Displays sentiment distribution through graphical representation, offering a clear understanding of emotional dynamics over time.
+                        <br><p>The MindMatrix Report analyzes sentiment trends to understand mental health patterns. By examining text data from various sources, it identifies emotions such as  stress, anxiety, or positivity in individuals and groups. This helps in detecting mood shifts and gaining insights into emotional well-being.</p>
+                        <p>Our project, <strong>Mind Matrix</strong>, focuses on analyzing sentiments from social media platforms to provide actionable insights for businesses and individuals.
+                        </p>
+                    </p>
+                    
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Use MindMatrix Section -->
+        <section id="data-insights">
+            <div class="card">
+                <div class="card-header">Data Insights</div>
+                <div class="card-body">
+                    <ul>
+                        <li>Positive Sentiments: <span id="positiveCount">0</span>%</li>
+                        <li>Neutral Sentiments: <span id="neutralCount">0</span>%</li>
+                        <li>Negative Sentiments: <span id="negativeCount">0</span>%</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        
+
+        <!-- How It Works Section -->
+        <section id="how-it-works">
+            <div class="card">
+                <div class="card-header">Graphical Representation</div>
+                <div class="card-body">
+                    <canvas id="sentimentChart"></canvas>
+                </div>
+            </div>
+        </section>
+
+        <section id="about">
+            <div class="card">
+                <div class="card-header">Detailed Analysis</div>
+                <div class="card-body">
+                    <p>Breakdown of sentiment trends by category, region, and demographic insights.</p>
+
+                </div>
+            </div>
+        </section>
+        <section id="recommendation-section">
+            <div class="card">
+                <div class="card-header">Recommendations</div>
+                <div class="card-body">
+                    <p id="recommendation">Loading recommendations...</p>  <!-- ✅ This will be updated dynamically -->
+                </div>
+            </div>
+        </section>
+                
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Mind Matrix. All rights reserved.</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            fetch("http://127.0.0.1:5000/analyze")
+                .then(response => response.json())
+                .then(data => {
+                    console.log("Received Data:", data);
+    
+                    let positive = 0, neutral = 0, negative = 0;
+                    let total = data.length;
+                    let totalScore = 0;  // To calculate average sentiment score
+    
+                    data.forEach(item => {
+                        let score = item.sentiment_score;
+                        totalScore += score;  // Sum up sentiment scores
+    
+                        if (score > 0.05) positive++;
+                        else if (score < -0.05) negative++;
+                        else neutral++;
+                    });
+    
+                    // ✅ Calculate percentages
+                    let positivePercentage = total ? ((positive / total) * 100).toFixed(1) : 0;
+                    let neutralPercentage = total ? ((neutral / total) * 100).toFixed(1) : 0;
+                    let negativePercentage = total ? ((negative / total) * 100).toFixed(1) : 0;
+    
+                    // ✅ Calculate Average Sentiment Score
+                    let avgScore = total ? (totalScore / total).toFixed(2) : 0;
+    
+                    // ✅ Update Data Insights Section
+                    document.getElementById("positiveCount").innerText = positivePercentage;
+                    document.getElementById("neutralCount").innerText = neutralPercentage;
+                    document.getElementById("negativeCount").innerText = negativePercentage;
+    
+                    // ✅ Generate Recommendation
+                    let recommendation = "";
+                    if (avgScore < -0.5) {
+                        recommendation = "High Risk Detected! Seek support from professionals.";
+                    } else if (avgScore >= -0.5 && avgScore < 0) {
+                        recommendation = "Moderate Emotional Fluctuations. Stay mindful and engage in positive activities.";
+                    } else {
+                        recommendation = "Overall Positive Mood! Keep up the good mental well-being practices.";
+                    }
+    
+                    // ✅ Update Recommendation Section
+                    document.getElementById("recommendation").innerText = recommendation;
+    
+                    // ✅ Update Chart Dynamically
+                    const ctx = document.getElementById('sentimentChart').getContext('2d');
+                    new Chart(ctx, {
+                        type: 'doughnut',
+                        data: {
+                            labels: ['Positive', 'Neutral', 'Negative'],
+                            datasets: [{
+                                data: [positive, neutral, negative],
+                                backgroundColor: ['#28a745', '#ffc107', '#dc3545']
+                            }]
+                        }
+                    });
+                })
+                .catch(error => console.error("Error fetching sentiment data:", error));
+        });
+    </script>   
+</body>
+</html

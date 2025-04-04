@@ -1,0 +1,11 @@
+text,cleaned_text,svm_prediction,svm_sentiment,lr_prediction,lr_sentiment,bert_raw,bert_sentiment,model_agreement
+I am feeling great today! The weather is amazing.,feeling great today weather amazing,1,neutral,1,neutral,5 stars,positive,Two Agree
+"Life is tough sometimes, but I keep pushing forward.",life tough sometimes keep pushing forward,1,neutral,1,neutral,3 stars,neutral,All Agree
+I don't know how to feel about this.,dont know feel,0,negative,0,negative,2 stars,negative,All Agree
+This is the worst day ever. Everything is going wrong.,worst day ever everything going wrong,0,negative,0,negative,1 star,negative,All Agree
+I'm so happy with my progress in life!,im happy progress life,1,neutral,1,neutral,5 stars,positive,Two Agree
+I feel really down and unmotivated.,feel really unmotivated,2,positive,2,positive,1 star,negative,Two Agree
+"This product is okay, nothing special.",product okay nothing special,1,neutral,1,neutral,3 stars,neutral,All Agree
+The new update is fantastic! I love it.,new update fantastic love,1,neutral,1,neutral,5 stars,positive,Two Agree
+Terrible experience with this service. Would not recommend.,terrible experience service would recommend,2,positive,2,positive,1 star,negative,Two Agree
+"Just another regular day, nothing much happening.",another regular day nothing much happening,2,positive,2,positive,3 stars,neutral,Two Agree

@@ -1,0 +1,12 @@
+post_id,content,cleaned_text,svm_prediction,svm_sentiment,bert_sentiment
+244436927766466561,@girl_gone_geek Hi Jamila!,girlgonegeek hi jamila,1,neutral,5 stars
+241232568148701184,I'm personally doin gr8! Having series of epiphanies...RT@lindajojomom @corofthesun @marykmac7,im personally doin gr series epiphaniesrtlindajojomom corofthesun marykmac,0,negative,1 star
+241020048716746752,Great! RT@marykmac7 @corofthesun @lindajojomom,great rtmarykmac corofthesun lindajojomom,2,positive,5 stars
+240860488588726274,Hope yall doing great!!! RT@lindajojomom @corofthesun @marykmac7,hope yall great rtlindajojomom corofthesun marykmac,2,positive,5 stars
+240712397726298112,"""Watching people leave is hard. But it's harder
+remembering that time when they promised they
+wouldn't"" - Marilyn Monroe",watching people leave hard harder remembering time promised wouldnt marilyn monroe,0,negative,5 stars
+240711979155726336,Helllloooo!!! @Lindajojomom @marykmac7 @CorOfTheSUN,helllloooo lindajojomom marykmac corofthesun,1,neutral,1 star
+238553383215181825,"RT @elmorphy: ""@callmeHynes: #BigTruth RT @elmorphy: Magic is just science we don't understand yet...."" SURE",rt elmorphy callmehynes bigtruth rt elmorphy magic science dont understand yet sure,0,negative,3 stars
+238313266512814080,"RT @_NealeDWalsch: Life is about your soul, not about your body and not about your mind.",rt nealedwalsch life soul body mind,1,neutral,5 stars
+238199605576212480,I could be better #retrospective,could better retrospective,0,negative,3 stars

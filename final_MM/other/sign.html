@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - MindMatrix</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="mind.css">
+    <style>
+        .signup-card {
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.25), 0 4px 8px rgba(0, 0, 0, 0.15);
+            border-radius: 12px;
+        }
+    </style>
+</head>
+<body background="C:\Users\dell\Desktop\MindMatrix\senti.jpg">
+    <header class="bg-primary text-white py-3 text-center">
+        <h1>MindMatrix</h1>
+    </header>
+
+    <div class="container d-flex justify-content-center align-items-center vh-100">
+        <div class="card signup-card p-4" style="width: 400px;">
+            <h2 class="text-center text-primary">Welcome to MindMatrix</h2>
+            <p class="text-center text-muted">Analyze sentiments intelligently</p>
+            <form>
+                <div class="mb-3">
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control" id="name" placeholder="Enter your name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" placeholder="Enter your email" required>
+                </div>
+                <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <input type="password" class="form-control" id="password" placeholder="Enter your password" required>
+                </div>
+                <div class="d-grid">
+                    <button type="submit" onclick="location.href='login.html'" class="btn btn-primary">Sign Up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card mb-4">
+                <div class="card-header bg-primary text-white d-flex justify-content-between align-items-center">
+                    <h4 class="mb-0">Dashboard</h4>
+                    <a href="{{ url_for('upload_file') }}" class="btn btn-light upload-btn">
+                        <i class="fas fa-upload me-2"></i>Upload New File
+                    </a>
+                </div>
+            </div>
+
+            {% if results %}
+                <!-- Sentiment Analysis Bar Charts -->
+                <div class="card mb-4">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">Sentiment Analysis Summary</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-md-4">
+                                <div id="svm-chart" style="height: 400px;"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div id="lr-chart" style="height: 400px;"></div>
+                            </div>
+                            <div class="col-md-4">
+                                <div id="bert-chart" style="height: 400px;"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Detailed Analysis -->
+                <div class="card">
+                    <div class="card-header bg-primary text-white">
+                        <h4 class="mb-0">Detailed Analysis</h4>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped">
+                                <thead>
+                                    <tr>
+                                        <th class="text-dark">Text</th>
+                                        <th class="text-dark">SVM</th>
+                                        <th class="text-dark">Logistic Regression</th>
+                                        <th class="text-dark">BERT</th>
+                                        <th class="text-dark">Model Agreement</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {% for item in results %}
+                                    <tr>
+                                        <td class="text-dark">{{ item.text }}</td>
+                                        <td>
+                                            <span class="badge {% if item.svm_sentiment == 'positive' %}bg-success text-white{% elif item.svm_sentiment == 'negative' %}bg-danger text-white{% else %}bg-warning text-dark{% endif %}">
+                                                {{ item.svm_sentiment }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge {% if item.lr_sentiment == 'positive' %}bg-success text-white{% elif item.lr_sentiment == 'negative' %}bg-danger text-white{% else %}bg-warning text-dark{% endif %}">
+                                                {{ item.lr_sentiment }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge {% if item.bert_sentiment == 'positive' %}bg-success text-white{% elif item.bert_sentiment == 'negative' %}bg-danger text-white{% else %}bg-warning text-dark{% endif %}">
+                                                {{ item.bert_sentiment }}
+                                            </span>
+                                        </td>
+                                        <td>
+                                            <span class="badge {% if item.model_agreement == 'All Agree' %}bg-success text-white{% elif item.model_agreement == 'Two Agree' %}bg-warning text-dark{% else %}bg-danger text-white{% endif %}">
+                                                {{ item.model_agreement }}
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+                <script>
+                    // Fetch and plot the charts
+                    fetch('/graph/')
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error(`HTTP error! status: ${response.status}`);
+                            }
+                            return response.json();
+                        })
+                        .then(data => {
+                            if (data.error) {
+                                document.getElementById('svm-chart').innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
+                                document.getElementById('lr-chart').innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
+                                document.getElementById('bert-chart').innerHTML = `<div class="alert alert-danger">${data.error}</div>`;
+                                return;
+                            }
+                            Plotly.newPlot('svm-chart', data.svm_chart.data, data.svm_chart.layout);
+                            Plotly.newPlot('lr-chart', data.lr_chart.data, data.lr_chart.layout);
+                            Plotly.newPlot('bert-chart', data.bert_chart.data, data.bert_chart.layout);
+                        })
+                        .catch(error => {
+                            console.error('Error loading charts:', error);
+                            document.getElementById('svm-chart').innerHTML = `<div class="alert alert-danger">Error loading charts: ${error.message}</div>`;
+                            document.getElementById('lr-chart').innerHTML = `<div class="alert alert-danger">Error loading charts: ${error.message}</div>`;
+                            document.getElementById('bert-chart').innerHTML = `<div class="alert alert-danger">Error loading charts: ${error.message}</div>`;
+                        });
+                </script>
+            {% else %}
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    No analysis results available. Please upload and analyze a file.
+                </div>
+            {% endif %}
+        </div>
+    </div>
+</div>
+
+<style>
+    .upload-btn {
+        transition: all 0.3s ease;
+        border: 2px solid #fff;
+        font-weight: 500;
+        padding: 8px 20px;
+    }
+    
+    .upload-btn:hover {
+        background-color: #fff;
+        color: #0d6efd;
+        transform: translateY(-2px);
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+    
+    .upload-btn i {
+        transition: transform 0.3s ease;
+    }
+    
+    .upload-btn:hover i {
+        transform: translateY(-2px);
+    }
+</style>
+{% endblock %}

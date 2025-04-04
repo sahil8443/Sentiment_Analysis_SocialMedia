@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Matrix - Sentiment Analysis Launch</title>
+    
+    <link rel="stylesheet" href="mind.css">
+</head>
+<body>
+    <!-- Header 
+    <header>
+        <div>
+            <h1>Mind Matrix</h1>
+        </div>
+        <div class="nav-links">
+            <a href="#about" class="nav-link">About</a>
+            
+            <a href="#workflow" class="nav-link">Workflow</a>
+            <a href="#video" class="nav-link">Video</a>
+        </div>
+        <div class="header-buttons">
+            <button onclick="location.href='login.html'">Login</button>
+            <button onclick="location.href='sign.html'">Sign Up</button>
+        </div>
+        
+    </header>-->
+
+    <!-- Navigation -->
+    <nav>
+        <div>
+            <h1>Mind Matrix</h1>
+        </div>
+        <div class="nav-links">
+            <a href="#about" class="nav-link">About</a>
+            
+            <a href="#workflow" class="nav-link">Workflow</a>
+            <a href="#video" class="nav-link">Video</a>
+        </div>
+        <div class="header-buttons">
+            <button onclick="location.href='login.html'">Login</button>
+            <button onclick="location.href='sign.html'">Sign Up</button>
+        </div>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="container">
+        <!-- About Section -->
+        <section id="about">
+            <div class="card">
+               <div class="card-header">What is Sentiment Analysis?</div>
+                <div class="card-body">
+                    <p>
+                        Sentiment analysis is the process of using natural language processing (NLP) and machine learning to determine the emotional tone behind text data. It helps classify text as <strong>positive</strong>, <strong>negative</strong>, or <strong>neutral</strong>.
+                    </p>
+                    <p>
+                        Generally, sentiment analysis is a tool that helps us understand the overall feeling or opinion behind a bunch of text, whether it's movie reviews, customer feedback, or social media posts. It's like having a mood detector for words! This can be really useful for businesses to see what people think about their products, for politicians to understand public opinion, or even just for you to get a quick summary of what people are saying about something online.
+                    </p> 
+                </div>
+            </div>
+        </section>
+
+        <!-- Why Use MindMatrix Section -->
+        <section id="why-use">
+            <div class="card">
+                <div class="card-header">Why Use MindMatrix?</div>
+                <div class="card-body">
+                    <div class="blocks-container">
+                        <div class="card-header">1. Understand Your Emotions Better</div>
+                <div class="card-body">
+                    <p>
+                        Many people experience mood changes but may not always recognize them. This report helps individuals track their emotions over time, making it easier to notice patterns, triggers, and improvements.
+                    </p>
+                     
+                </div>
+                <div class="card-header">2. Early Detection of Emotional Struggles</div>
+                <div class="card-body">
+                    <p>
+                        Stress, anxiety, and depression often build up gradually. By identifying early warning signs, individuals, therapists, and organizations can take action before these feelings become overwhelming.
+                    </p>
+                     
+                </div>
+                <div class="card-header">3. Support for Mental Health Professionals</div>
+                <div class="card-body">
+                    <p>
+                        Counselors and therapists can use this analysis to gain deeper insights into their patients' emotional states. Instead of relying only on conversations, they can see data-backed patterns that reveal hidden struggles.
+
+                    </p>
+                     
+                </div>
+                <div class="card-header">4. Improve Workplace Well-being</div>
+                <div class="card-body">
+                    <p>
+                        Organizations can use this tool to assess the emotional health of employees. This helps in creating a better work environment, reducing burnout, and improving overall productivity.
+                    </p>
+                     
+                </div>
+                <div class="card-header">5. Data-Driven Decision Making</div>
+                <div class="card-body">
+                    <p>
+                        Rather than guessing how someone feels, this analysis provides clear evidence of emotional trends. Whether for individuals, professionals, or businesses, it helps make informed choices about mental health support.
+                    </p>
+                     
+                </div>
+                <div class="card-header">6. Encourages Mental Health Awareness</div>
+                <div class="card-body">
+                    <p>
+                        By making emotions more visible, this tool promotes open discussions about mental health, reducing stigma and encouraging people to seek help when needed.
+
+                    </p>
+                     
+                </div>
+                <div class="card-header">7. Easy-to-Understand Insights</div>
+                <div class="card-body">
+                    <p>
+                        The report includes charts and graphs that make it simple to see emotional shifts over time. Whether for personal use or professional analysis, the visual representation makes understanding emotions effortless.
+                    </p>
+                     
+                </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- How It Works Section -->
+        <section id="why-use">
+            <div class="card">
+                <div class="card-header">How it works</div>
+                <div class="card-body">
+                    <div class="blocks-container"></div>
+                        <div class="card-header">1. Fetching Social Media Data</div>
+                        <div class="card-body">
+                            <p>
+                                APIs provide a bridge to gather essential data from social media platforms such as Instagram and Twitter.
+                                This involves generating API tokens and using Python libraries for HTTP requests.
+                            </p>
+                            <p>
+                                <strong>Libraries Used:</strong>
+                                <ul>
+                                    <li><b>Requests:</b> Facilitates HTTP requests to fetch data from APIs.</li>
+                                    <li><b>TweePy:</b> Provides easy access to the Twitter API.</li>
+                                </ul>
+                                <strong>Instagram Graph API:</strong>
+                                <ul>
+                                    <li><b>Post Captions:</b> Retrieve captions for sentiment analysis using the <code>/me/media</code> endpoint.</li>
+                                    <li><b>Comments:</b> Analyze user comments via <code>/media/{media-id}/comments</code>.</li>
+                                    <li><b>Stories:</b> Assess ephemeral content from <code>/me/stories</code>.</li>
+                                    <li><b>Hashtags:</b> Identify trends using <code>/ig_hashtag_search</code>.</li>
+                                </ul>
+                                <strong>Twitter API:</strong>
+                                <ul>
+                                    <li><b>Fetch Tweets:</b> Collect tweets using the <code>/tweets</code> endpoint.</li>
+                                    <li><b>User Mentions:</b> Track mentions for supportive or critical comments.</li>
+                                    <li><b>Hashtags:</b> Analyze mental health-related hashtags like #selfcare, #depression, and #stress.</li>
+                                </ul>
+                            </p>
+                        </div>
+                    
+                    
+                        <div class="card-header">2. Data Preprocessing</div>
+                        <div class="card-body">
+                            <p>
+                                Effective data processing involves cleaning and transforming social media text for analysis:
+                                <ul>
+                                    <li>Remove unnecessary links, URLs, and special characters.</li>
+                                    <li>Normalize text by converting it to lowercase.</li>
+                                    <li>Tokenize text for efficient storage in databases.</li>
+                                    <li>Remove stopwords and handle missing values.</li>
+                                </ul>
+                            </p>
+                        </div>
+                        <div class="card-header">3. Sentiment Analysis</div>
+                        <div class="card-body">
+                            <p>
+                                Sentiment analysis provides insights into the emotions conveyed in the text.
+                            </p>
+                            <p>
+                                <strong>TextBlob Features:</strong>
+                                <ul>
+                                    <li>Polarity and subjectivity sentiment evaluation.</li>
+                                    <li>Naive Bayes text classification.</li>
+                                    <li>POS tagging and noun phrase extraction.</li>
+                                    <li>Tokenization and spelling correction.</li>
+                                </ul>
+                                <strong>Algorithm:</strong>
+                                <ul>
+                                    <li>Lexicon-based approach using predefined polarity and subjectivity scores.</li>
+                                    <li>Averaging scores for the entire text to derive sentiment insights.</li>
+                                </ul>
+                            </p>
+                        </div>
+                        <div class="card-header">4. Combining Insights</div>
+                        <div class="card-body">
+                            <p>
+                                Integration of different data insights involves:
+                                <ul>
+                                    <li><b>Normalization:</b> Scale various metrics to a common range using Min-Max scaling.</li>
+                                    <li><b>Weight Assignment:</b> Assign weights to different metrics (e.g., Sentiment Polarity at 40%).</li>
+                                    <li><b>Risk Score Calculation:</b> Combine weighted metrics for a holistic score.</li>
+                                    <li><b>Threshold-Based Warnings:</b>
+                                        <ul>
+                                            <li>Low Risk (0.0 - 0.4): No action needed.</li>
+                                            <li>Moderate Risk (0.4 - 0.7): Suggest positive mental health actions.</li>
+                                            <li>High Risk (0.7 - 1.0): Flag as a potential mental health concern.</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </p>
+                        </div>
+                        <div class="card-header">5. Analyzing Behavior</div>
+                        <div class="card-body">
+                            <p>
+                                Key behavioral analysis focuses on patterns and interactions:
+                                <ul>
+                                    <li>Posting frequency</li>
+                                    <li>Engagement levels</li>
+                                    <li>Interaction trends</li>
+                                    <li>Time of activity</li>
+                                    <li>Hashtag usage</li>
+                                </ul>
+                                <strong>Steps for Analysis:</strong>
+                                <ul>
+                                    <li><b>Data Extraction:</b> Collect metadata and engagement data from APIs.</li>
+                                    <li><b>Data Aggregation:</b> Organize data into daily, weekly, or monthly structures.</li>
+                                    <li><b>Normalization:</b> Standardize metrics for fair comparison.</li>
+                                    <li><b>Trend Detection:</b> Identify patterns in posting frequency and engagement levels.</li>
+                                    <li><b>Anomaly Detection:</b> Spot sudden spikes or drops as potential concerns.</li>
+                                </ul>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+            
+
+        <!-- Workflow Section -->
+        <section id="workflow">
+            <div class="card">
+                <div class="card-header">Project Workflow</div>
+                <div class="card-body">
+                    <img src="C:\MindMatrix\mind.png" alt="Workflow">
+                    <p>
+                        The workflow diagram above illustrates the end-to-end process of our sentiment analysis project.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Video Section -->
+        <section id="video">
+            <div class="card">
+                <div class="card-header">Learn More About Sentiment Analysis</div>
+                <div class="card-body">
+                    <div class="video-container">
+                        <iframe src="https://www.youtube.com/embed/CQDSBgPbKGw" allowfullscreen></iframe>
+                    </div>
+                    <p>
+                        Watch this video to understand the fundamentals of sentiment analysis and its applications.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2023 Mind Matrix. All rights reserved.</p>
+    </footer>
+    
+</body>
+<script>
+    document.addEventListener("DOMContentLoaded", () => {
+        const sections = document.querySelectorAll("section");
+        const revealOnScroll = () => {
+            sections.forEach(section => {
+                const sectionTop = section.getBoundingClientRect().top;
+                if (sectionTop < window.innerHeight - 50) {
+                    section.classList.add("visible");
+                }
+            });
+        };
+        window.addEventListener("scroll", revealOnScroll);
+        revealOnScroll();
+    });
+</script>
+</html
